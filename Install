@@ -1,0 +1,17 @@
+Nuxt | Frontend
+npx nuxi@latest init frontend (Minial Versi)
+`npm install
+`npm run dev
+`npm install gsap
+`npm install tailwindcss @tailwindcss/vite
+`npm install nuxt/ui
+
+
+Laravel | backend
+`composer install
+`composer require laravel/sanctum
+`php artisan sanctum:install
+`php artisan migrate
+
+`composer require laravel/socialite
+y
