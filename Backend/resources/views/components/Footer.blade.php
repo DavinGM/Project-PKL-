@@ -65,7 +65,7 @@
             </div>
             
             <p class="text-slate-500 text-sm font-medium">
-                © 2025 {{ config('app.name') }}. Dibuat oleh Tim {{ config('app.name') }}  untuk Pelajar Indonesia.
+                © 2025 {{ config('app.name') }}. Dibuat oleh Tim NLFTs untuk Pelajar Indonesia.
             </p>
         </div>
     </div>

@@ -40,7 +40,7 @@
                 <h2 class="text-6xl md:text-8xl font-black text-white leading-none mb-10">
                     SIAP <br> BELAJAR?
                 </h2>
-                <a href="#" class="group relative px-12 py-6 bg-indigo-600 rounded-2xl overflow-hidden shadow-2xl">
+                <a href="/jelajah" class="group relative px-12 py-6 bg-indigo-600 rounded-2xl overflow-hidden shadow-2xl">
                     <div class="absolute inset-0 bg-white translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500"></div>
                     <span class="relative z-10 text-white group-hover:text-slate-950 font-black text-xl uppercase tracking-widest transition-colors">Jelajahi Sekarang</span>
                 </a>

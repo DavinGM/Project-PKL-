@@ -21,7 +21,7 @@
             </p>
 
             <div id="hero-btns" class="flex flex-wrap justify-center lg:justify-start items-center gap-5">
-                <a href="#" id="btn-glow" class="relative group px-10 py-5 bg-indigo-600 text-slate-950 rounded-2xl font-extrabold transition-all overflow-hidden active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                <a href="/jelajah" id="btn-glow" class="relative group px-10 py-5 bg-indigo-600 text-slate-950 rounded-2xl font-extrabold transition-all overflow-hidden active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                     <span id="shine-effect" class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/80 to-transparent -translate-x-full"></span>
                     <span class="relative z-10 flex items-center gap-2">
                         JELAJAHI BUKU

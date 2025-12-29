@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookmarks', function (Blueprint $table) {
+        Schema::create('user_vouchers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId   ('book_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('voucher_id')->constrained()->cascadeOnDelete();
+            $table->boolean('is_used')->default(false); // Berubah jadi true saat checkout sukses
+            $table->dateTime('claimed_at')->useCurrent();
             $table->timestamps();
-            $table->unique(['user_id', 'book_id']);
         });
-
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookmarks');
+        Schema::dropIfExists('user_vouchers');
     }
 };

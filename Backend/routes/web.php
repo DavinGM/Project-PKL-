@@ -1,60 +1,90 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Controllers
+|--------------------------------------------------------------------------
+*/
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Frontend\BookController;
+use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Middleware\RoleMiddleware;
 
+/*
+|--------------------------------------------------------------------------
+| Public Routes (Guest & Umum)
+|--------------------------------------------------------------------------
+*/
+
+// Book Detail
+Route::get('/book/{slug}', [BookController::class, 'show'])
+    ->name('book.show');
+
+// Landing Page
+Route::view('/', 'welcome')->name('home');
 
 
+// Category Landing (Atomic Page)
+Route::get('/category', [CategoryController::class, 'index'])
+    ->name('category.index');
+
+// Category Detail
+Route::get('/category/{slug}', [CategoryController::class, 'show'])
+    ->name('category.show');
 
 
+// Social Auth (Guest Only)
+Route::middleware('guest')->controller(SocialAuthController::class)->group(function () {
+    Route::get('/auth/google', 'redirect')->name('auth.google');
+    Route::get('/auth/google/callback', 'callback');
 
-// Profile
-Route::middleware(['auth'])
-->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/auth/github', 'redirectGithub')->name('auth.github');
+    Route::get('/auth/github/callback', 'callbackGithub');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'verified'])->group(function () {
 
-// Google
-Route::get('/auth/google', [SocialAuthController::class, 'redirect'])
-->middleware('guest');
+    // User Dashboard / Jelajah
+    Route::get('/jelajah', [BookController::class, 'index'])
+        ->name('jelajah');
 
-Route::get('/auth/google/callback', [SocialAuthController::class, 'callback'])
-->middleware('guest');
+    // Alias dashboard (anti error Socialite / default Laravel)
+    Route::redirect('/dashboard', '/jelajah')->name('dashboard');
 
-// github
-Route::get('auth/github', [SocialAuthController::class, 'redirectGithub']);
-Route::get('auth/github/callback', [SocialAuthController::class, 'callbackGithub']);
-    
-    
-// admin
+    // Profile
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth', RoleMiddleware::class . ':admin'])
     ->prefix('admin')
-    ->name('admin.')
+    ->as('admin.')
     ->group(function () {
+
         Route::get('/', [DashboardController::class, 'index'])
             ->name('dashboard');
     });
 
-
-
-// gak tau
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
+/*
+|--------------------------------------------------------------------------
+| Auth Scaffolding (Laravel Breeze / Jetstream)
+|--------------------------------------------------------------------------
+*/
+require __DIR__ . '/auth.php';

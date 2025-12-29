@@ -15,8 +15,8 @@
         </div>
 
         <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-400" id="nav-links">
-            <a href="#" class="hover:text-blue-400 transition-colors">Koleksi</a>
-            <a href="#" class="hover:text-blue-400 transition-colors">Kategori</a>
+            <a href="/jelajah" class="hover:text-blue-400 transition-colors">jelajahi</a>
+            <a href="/category" class="hover:text-blue-400 transition-colors">Kategori</a>
             <a href="#" class="hover:text-blue-400 transition-colors">Promo</a>
         </div>
 
