@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\BookController;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\BookmarkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +22,26 @@ use App\Http\Middleware\RoleMiddleware;
 |--------------------------------------------------------------------------
 */
 
+
+// Seaech fiture
+
+Route::get('/api/search', [SearchController::class, 'apiSearch'])->name('api.search');
+Route::get('/search/results', [SearchController::class, 'showResults'])->name('search.results');
+
+
+
+
 // Book Detail
 Route::get('/book/{slug}', [BookController::class, 'show'])
     ->name('book.show');
+
+
+// Bookmark
+Route::post('/bookmark/toggle', [BookmarkController::class, 'toggle'])
+    ->middleware('auth')
+    ->name('bookmark.toggle');
+
+
 
 // Landing Page
 Route::view('/', 'welcome')->name('home');

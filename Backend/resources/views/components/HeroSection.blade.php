@@ -30,7 +30,7 @@
                         </svg>
                     </span>
                 </a>
-                <a href="#" class="px-10 py-5 rounded-2xl font-extrabold border-2 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+                <a href="/category" class="px-10 py-5 rounded-2xl font-extrabold border-2 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
                     Kategori
                 </a>
             </div>
@@ -52,7 +52,6 @@
 
 @push('scripts')
 <script>
-    // Gunakan fungsi agar tidak bentrok jika komponen dipanggil berkali-kali
     (function() {
         const initHeroAnimation = () => {
             if (typeof gsap !== 'undefined') {

@@ -44,25 +44,25 @@
 
         {{-- OTHERS --}}
         <div class="md:col-span-7 mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
-    @foreach($categories as $category)
-        <a href="{{ route('category.show', $category['slug']) }}">
-            <div class="category-card p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 transition-all flex items-center justify-between group cursor-pointer">
-                <span class="text-xs font-bold text-slate-300 group-hover:text-white">
-                    {{ $category['name'] }}
-                </span>
+            @foreach($categories as $category)
+                <a href="{{ route('category.show', $category['slug']) }}">
+                    <div class="category-card p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 transition-all flex items-center justify-between group cursor-pointer">
+                        <span class="text-xs font-bold text-slate-300 group-hover:text-white">
+                            {{ $category['name'] }}
+                        </span>
 
-                <svg
-                    class="w-3 h-3 text-slate-600 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path d="M9 5l7 7-7 7"/>
-                </svg>
-            </div>
-        </a>
-    @endforeach
-</div>
+                        <svg
+                            class="w-3 h-3 text-slate-600 group-hover:translate-x-1 transition-transform"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </a>
+            @endforeach
+        </div>
 
     </div>
 </section>

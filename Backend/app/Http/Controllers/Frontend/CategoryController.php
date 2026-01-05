@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Bookmark;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Book;
@@ -14,10 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
 {
-    /**
-     * Ambil kategori yang ADA isinya saja
-     * + eager loading buku
-     */
+    $bookmarkedIds = Auth::check()
+    ? Bookmark::where('user_id', Auth::id())->pluck('book_id')->toArray()
+    : [];
+
+
     $categories = Category::with([
         'books' => function ($query) {
             $query->latest()->take(4);
@@ -27,12 +30,12 @@ class CategoryController extends Controller
     /**
      * Transform ke SHAPE YANG FRONTEND MAU
      */
-    $mappedCategories = $categories->map(function ($category) {
+    $mappedCategories = $categories->map(function ($category) use ($bookmarkedIds) {
         return [
             'name' => $category->name,
             'slug' => $category->slug,
 
-            'books' => $category->books->map(function ($book) {
+            'books' => $category->books->map(function ($book) use ($bookmarkedIds) {
                 return [
                     'title'  => $book->title,
                     'author' => $book->author,
@@ -41,6 +44,7 @@ class CategoryController extends Controller
                     'image'  => $book->cover,
                     'id'     => $book->id,
                     'slug'   => $book->slug,
+                    'is_bookmarked' => in_array($book->id, $bookmarkedIds),
                 ];
             })->toArray(),
 

@@ -13,47 +13,49 @@
         </a>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-    
-    @forelse($categories as $cat)
-        {{-- Card Kategori --}}
-        <div class="category-card group relative p-8 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:border-blue-500/30 overflow-hidden cursor-pointer transition-colors duration-500">
-            
-            {{-- Background Gradient Dinamis dari Kolom 'color' --}}
-            <div class="absolute inset-0 bg-gradient-to-br {{ $cat->color }} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            
-            <div class="relative z-10">
-                {{-- Icon Dinamis dari Kolom 'icon' --}}
-                <div class="text-5xl mb-6 transform group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500">
-                    {{ $cat->icon }}
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                @forelse($categories as $cat)
+                    {{-- Card Kategori --}}
+                    {{-- Kita bungkus seluruh kartu dengan tag <a> agar bisa diklik --}}
+                    <a href="{{ route('category.show', $cat->slug) }}" class="category-card group relative p-8 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:border-blue-500/30 overflow-hidden transition-colors duration-500 block">
+                        
+                        {{-- Background Gradient Dinamis dari Kolom 'color' --}}
+                        {{-- Pastikan data di database berupa class Tailwind, misal: from-blue-600/20 --}}
+                        <div class="absolute inset-0 bg-gradient-to-br {{ $cat->color }} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        <div class="relative z-10">
+                            {{-- Icon Dinamis --}}
+                            <div class="text-5xl mb-6 transform group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500">
+                                {{ $cat->icon }}
+                            </div>
+
+                            {{-- Nama Kategori Dinamis --}}
+                            <h3 class="text-white text-xl font-bold leading-tight">
+                                {{ $cat->name }}
+                            </h3>
+
+                            {{-- Jumlah Buku Dinamis --}}
+                            <p class="text-slate-500 text-sm mt-2 font-medium">
+                                {{ number_format($cat->books_count) }}+ Buku
+                            </p>
+                        </div>
+
+                        {{-- Icon Panah --}}
+                        <div class="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </a>
+                @empty
+                    {{-- Kondisi jika database kosong --}}
+                    <div class="col-span-full text-center p-10 bg-slate-900/50 rounded-[2rem] border border-dashed border-white/10">
+                        <p class="text-slate-400 italic">Belum ada kategori tersedia.</p>
+                    </div>
+                @endforelse
                 </div>
 
-                {{-- Nama Kategori Dinamis --}}
-                <h3 class="text-white text-xl font-bold leading-tight">
-                    {{ $cat->name }}
-                </h3>
 
-                {{-- Jumlah Buku Dinamis (Hasil dari withCount) --}}
-                <p class="text-slate-500 text-sm mt-2 font-medium">
-                    {{ number_format($cat->books_count) }}+ Buku
-                </p>
-            </div>
-
-            {{-- Icon Panah (Tetap Statis sebagai Elemen UI) --}}
-            <div class="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
-                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-            </div>
-        </div>
-    @empty
-        {{-- Kondisi jika database kosong --}}
-        <div class="col-span-full text-center p-10 bg-slate-900/50 rounded-[2rem] border border-dashed border-white/10">
-            <p class="text-slate-400 italic">Belum ada kategori tersedia.</p>
-        </div>
-    @endforelse
-
-</div>
 </section>
 
 @push('scripts')

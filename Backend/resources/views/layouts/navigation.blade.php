@@ -52,8 +52,8 @@
     </div>
 
     <div x-show="open" x-cloak x-transition class="md:hidden bg-slate-900 border-t border-white/5 px-6 py-6 space-y-4">
-        <a href="#" class="block text-slate-300 font-bold">Koleksi</a>
-        <a href="#" class="block text-slate-300 font-bold">Kategori</a>
+        <a href="/jelajah" class="block text-slate-300 font-bold">jelajahi</a>
+        <a href="/category" class="block text-slate-300 font-bold">Kategori</a>
         @auth <a href="{{ route('profile.edit') }}" class="block text-slate-300 font-bold">Profile</a> @endauth
     </div>
 </nav>
